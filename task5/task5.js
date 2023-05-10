@@ -20,7 +20,10 @@ if (!websocket) {
     writeToScreen("DISCONNECTED");
   };
   websocket.onmessage = function (evt) {
-    serverResponce(evt.data);
+    
+    if (evt.data==='Геолокация') {
+      return;
+    } else serverResponce(evt.data);
   };
   websocket.onerror = function (evt) {
     writeToScreen(error);
@@ -53,6 +56,7 @@ const success = (position) => {
   document.body.appendChild(mapLink1);
   let br = document.createElement("br");
   document.body.appendChild(br);
+  websocket.send(mapLink1.textContent);
 }
 const error = () => {
   console.log('Невозможно получить ваше местоположение');
